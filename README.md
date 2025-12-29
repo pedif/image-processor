@@ -33,14 +33,14 @@ This project is build incrementally.
 
 
 ## Repository Structure
-
+```
 image-processor/           ← Root
-├── client/                ← Android client code
+├── client/                ← Client code
 │   └── android/           ← Android Studio project
 │       ├── app/           ← App module
 │       ├── core/          ← Shared logic, utilities, network
 │       ├── feature-*      ← Feature modules (classifier, camera, etc.)
-│       ├── domain/           ← Business logic
+│       ├── domain/        ← Business logic
 │       ├── io/            ← Networking and local io operations
 │       ├── ml/            ← Local(offline) ml processing
 │       └── build-logic/   ← Gradle convention plugins & version catalog
@@ -53,7 +53,7 @@ image-processor/           ← Root
 ├── docs/                  ← Documentation, diagrams, design notes
 ├── .github/               ← GitHub Actions workflows
 └── README.md              ← Root README
-
+```
 
 ---
 
