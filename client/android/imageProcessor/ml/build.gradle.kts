@@ -12,5 +12,6 @@ kotlin {
     }
 }
 dependencies {
+    implementation(projects.common)
     testImplementation(libs.junit)
 }

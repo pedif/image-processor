@@ -13,7 +13,8 @@ kotlin {
 }
 
 dependencies{
-
+    implementation(projects.common)
+    implementation(projects.domain)
     implementation(libs.retrofit)
     testImplementation(libs.junit)
 }
