@@ -1,5 +1,6 @@
 package com.techys.ip.domain.usecase
 
+import com.techys.ip.domain.model.ClassificationError
 import com.techys.ip.domain.model.ClassificationResult
 import com.techys.ip.domain.model.ImageLabel
 import com.techys.ip.domain.repository.ImageRepositoryFake
@@ -29,22 +30,22 @@ class ImageClassifyUseCaseTest {
         val result = useCase(fakeFile)
         assertTrue(result is ClassificationResult.Error)
         assertEquals(
-            "File not found",
-            (result as ClassificationResult.Error).reason
+            ClassificationError.FileNotFound,
+            (result as ClassificationResult.Error).error
         )
     }
 
     @Test
     fun `returns error when repository fails`() = runTest {
         val tempFile = createTempFile().toFile()
-        repo.result = ClassificationResult.Error("model crashed")
+        repo.result = ClassificationResult.Error(ClassificationError.ModelCrashed)
 
         val result = useCase(tempFile)
 
         assertTrue(result is ClassificationResult.Error)
         assertEquals(
-            "model crashed",
-            (result as ClassificationResult.Error).reason
+            ClassificationError.ModelCrashed,
+            (result as ClassificationResult.Error).error
         )
     }
 
