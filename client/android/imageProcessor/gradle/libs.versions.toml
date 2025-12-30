@@ -14,6 +14,7 @@ jetbrainsKotlinJvm = "2.0.21"
 nav3Core = "1.0.0"
 lifecycleViewmodelNav3 = "2.10.0"
 retrofit = "3.0.0"
+timber = "5.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,8 +40,11 @@ androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", vers
 # Optional add-on libraries
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
 
+#Networking
 retrofit = {module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit"}
 
+#Logging
+timber = {module = "com.jakewharton.timber:timber", version.ref = "timber"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
