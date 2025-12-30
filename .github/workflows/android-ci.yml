@@ -32,6 +32,15 @@ jobs:
       - name: Run unit tests
         working-directory: client/android/imageProcessor
         run: ./gradlew testDebugUnitTest
+      - name: Run domain module unit tests
+        working-directory: client/android/imageProcessor
+        run: ./gradlew :domain:test
+      - name: Run io module unit tests
+        working-directory: client/android/imageProcessor
+        run: ./gradlew :io:test
+      - name: Run ml module unit tests
+        working-directory: client/android/imageProcessor
+        run: ./gradlew :ml:test
 
       - name: Build APK
         working-directory: client/android/imageProcessor
