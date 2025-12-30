@@ -1,5 +1,6 @@
 package com.techys.common.util
 
 interface Logger {
-    fun log()
+    fun d(text: String)
+    fun e(text: String)
 }
