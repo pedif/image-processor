@@ -7,6 +7,7 @@ on:
       - "client/android/**"
       - ".github/workflows/android-ci.yml"
   pull_request:
+    branches: [ master ]
     paths:
       - "client/android/**"
 
@@ -15,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -24,21 +25,14 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Cache Gradle
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-
-      - name: Grant execute permission
-        run: chmod +x client/android/gradlew
+      - name: Grant execute permission to Gradle wrapper
+        working-directory: client/android/imageProcessor
+        run: chmod +x ./gradlew
 
       - name: Run unit tests
-        working-directory: client/android
+        working-directory: client/android/imageProcessor
         run: ./gradlew testDebugUnitTest
 
-      - name: Build
-        working-directory: client/android
+      - name: Build APK
+        working-directory: client/android/imageProcessor
         run: ./gradlew assembleDebug
