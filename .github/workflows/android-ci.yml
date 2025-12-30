@@ -1,0 +1,44 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "client/android/**"
+      - ".github/workflows/android-ci.yml"
+  pull_request:
+    paths:
+      - "client/android/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+
+      - name: Grant execute permission
+        run: chmod +x client/android/gradlew
+
+      - name: Run unit tests
+        working-directory: client/android
+        run: ./gradlew testDebugUnitTest
+
+      - name: Build
+        working-directory: client/android
+        run: ./gradlew assembleDebug
