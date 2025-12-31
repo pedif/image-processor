@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_classification">Classify this image</string>
+    <string name="confidence_label">This is a %1$s with %2$d%% confidence.</string>
+</resources>
