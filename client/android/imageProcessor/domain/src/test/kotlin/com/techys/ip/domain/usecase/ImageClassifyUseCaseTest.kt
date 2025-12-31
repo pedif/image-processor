@@ -52,7 +52,7 @@ class ImageClassifyUseCaseTest {
     @Test
     fun `returns label when classification succeeds`() = runTest {
         val tempFile = createTempFile().toFile()
-        val expectedLabel = ImageLabel(id = 1, label = "cat")
+        val expectedLabel = ImageLabel(label = "cat", confidence = 1f)
 
         repo.result = ClassificationResult.Success(expectedLabel)
         val result = useCase(tempFile)
