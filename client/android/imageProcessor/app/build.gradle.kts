@@ -42,6 +42,8 @@ dependencies {
     implementation(projects.core)
     implementation(projects.domain)
     implementation(projects.designSystem)
+    implementation(projects.common)
+    implementation(projects.io)
     implementation(projects.classification)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
