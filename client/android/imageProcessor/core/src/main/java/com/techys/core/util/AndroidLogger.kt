@@ -1,4 +1,4 @@
-package logger
+package com.techys.core.util
 
 import com.techys.common.util.Logger
 import timber.log.Timber

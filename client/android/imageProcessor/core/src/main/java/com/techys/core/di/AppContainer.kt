@@ -1,7 +1,11 @@
 package com.techys.core.di
 
-import logger.AndroidLogger
+import com.techys.common.util.Logger
+import com.techys.ip.domain.repository.ImageRepository
+import com.techys.ip.domain.usecase.ImageClassifyUseCase
 
-class AppContainer {
-    val Logger = AndroidLogger()
+interface AppContainer {
+    val Logger: Logger
+    val repository: ImageRepository
+    val classificationUseCase: ImageClassifyUseCase
 }
