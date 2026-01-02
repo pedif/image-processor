@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_classification">Classify this image</string>
-    <string name="confidence_label">This is a %1$s with %2$d%% confidence.</string>
+    <string name="classification_result">%1$s with %2$d%% confidence.</string>
+    <string name="classification_unsuccessful">The AI could not recognize anything in this image</string>
+    <string name="error_nothing_selected">Nothing is selected!</string>
+    <string name="error_classification_file_not_found">File not found</string>
+    <string name="error_classification_timeout">An timeout has happened</string>
+    <string name="error_classification_crash">The AI model has crashed</string>
+    <string name="error_classification_unknown">An unknown error has happened</string>
 </resources>

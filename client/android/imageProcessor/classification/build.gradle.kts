@@ -39,6 +39,7 @@ dependencies {
     implementation(projects.core)
     implementation(projects.designSystem)
     implementation(projects.domain)
+    implementation(projects.common)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
