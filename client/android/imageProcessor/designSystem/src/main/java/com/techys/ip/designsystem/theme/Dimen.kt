@@ -8,7 +8,8 @@ object Dimen {
     val paddingMedium = 8.dp
     val paddingLarge = 12.dp
     val paddingXLarge = 16.dp
-    val paddingXXLarge = 20.dp
+    val paddingXXLarge = 24.dp
+    val paddingHuge = 32.dp
 
     val paddingScreenVertical = 16.dp
     val paddingScreenHorizontal = 16.dp
