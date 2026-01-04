@@ -5,7 +5,7 @@ import com.techys.core.di.AppContainer
 import com.techys.ip.domain.repository.ImageRepository
 import com.techys.ip.domain.usecase.ImageClassifyUseCase
 import com.techys.core.util.AndroidLogger
-import com.techys.io.network.repository.ImageRepositoryStub
+import com.techys.ip.domain.repository.ImageRepositoryStub
 
 /**
  * Manual dependency injector
