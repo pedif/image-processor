@@ -1,6 +1,7 @@
 package com.techys.classification.viewmodel
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.techys.classification.model.ClassificationState
 import com.techys.classification.model.ImageSource
@@ -37,18 +38,25 @@ class ClassificationViewModel(
     private val _errorMessages = MutableSharedFlow<Int>()
     val errorMessages: SharedFlow<Int> = _errorMessages
 
-    init {
-        loadAssetPlaceholder()
+    //TODO Remove all asset related placeholders when gallery/camera are setup
+    fun loadAssetPlaceholder() {
+        setImageSource("cat.png")
     }
 
-    //TODO Remove all asset related placeholders when gallery/camera are setup
-    private fun loadAssetPlaceholder() {
-        _state.value = state.value.copy(
-            image = ImageSource(uri = "cat.png".toUri())
+    fun setImageSource(path: String) {
+        updateState { copy(image = ImageSource(path.toUri())) }
+    }
+
+    fun classifyDemoAsset(context: Context) {
+        classify(
+            assetToFile(
+                context = context,
+                assetPath = "cat.png"
+            )
         )
     }
 
-    fun classify(context: Context) = viewModelScope.launch {
+    fun classify(file: File) = viewModelScope.launch {
         logger.e(
             tag = tag,
             text = "classifying"
@@ -67,14 +75,9 @@ class ClassificationViewModel(
                 state = UiState.Loading
             )
         }
-        delay(3_000)
         val result = classificationUseCase(
-            assetToFile(
-                context = context,
-                assetPath = imagePath.path.orEmpty()
-            )
+            file = file
         )
-
         logger.e(
             tag = tag,
             text = "$result"
