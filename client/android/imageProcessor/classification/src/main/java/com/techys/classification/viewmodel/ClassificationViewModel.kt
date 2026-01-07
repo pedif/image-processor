@@ -1,6 +1,7 @@
 package com.techys.classification.viewmodel
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import com.techys.classification.model.ClassificationState
 import com.techys.classification.model.ImageSource
@@ -56,11 +57,7 @@ class ClassificationViewModel(
         )
     }
 
-    fun classify(file: File) = viewModelScope.launch(dispatcher) {
-        logger.e(
-            tag = tag,
-            text = "classifying"
-        )
+    fun classify()= viewModelScope.launch(dispatcher){
         val imagePath = state.value.image?.uri
         if (imagePath == null) {
             _errorMessages.emit(R.string.error_nothing_selected)
@@ -70,6 +67,16 @@ class ClassificationViewModel(
             )
             return@launch
         }
+        classify(File(imagePath.path))
+    }
+
+    @VisibleForTesting
+    fun classify(file: File) = viewModelScope.launch(dispatcher) {
+        logger.e(
+            tag = tag,
+            text = "classifying"
+        )
+
         updateState {
             copy(
                 uiState = UiState.Loading

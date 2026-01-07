@@ -2,6 +2,7 @@ package com.techys.classification.viewmodel
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
+import com.techys.classification.R
 import com.techys.common.util.JavaLogger
 import com.techys.core.model.UiState
 import com.techys.ip.domain.repository.ImageRepositoryStub
@@ -44,6 +45,14 @@ class ClassificationViewModelTest {
             assertThat(awaitItem().uiState).isEqualTo(UiState.Idle)
 
             cancelAndConsumeRemainingEvents() // cleanup
+        }
+    }
+
+    @Test
+    fun `error message generated correctly when no file is found`() = runTest{
+        viewModel.errorMessages.test(timeout = 5.seconds) {
+            viewModel.classify()
+            assertThat(awaitItem()).isEqualTo(R.string.error_nothing_selected)
         }
     }
 }
