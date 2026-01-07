@@ -39,9 +39,9 @@ class ClassificationViewModelTest {
 
             viewModel.classify(createTempFile().toFile())
 
-            assertThat(awaitItem().state).isEqualTo(UiState.Idle)
-            assertThat(awaitItem().state).isEqualTo(UiState.Loading)
-            assertThat(awaitItem().state).isEqualTo(UiState.Idle)
+            assertThat(awaitItem().uiState).isEqualTo(UiState.Idle)
+            assertThat(awaitItem().uiState).isEqualTo(UiState.Loading)
+            assertThat(awaitItem().uiState).isEqualTo(UiState.Idle)
 
             cancelAndConsumeRemainingEvents() // cleanup
         }

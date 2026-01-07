@@ -1,7 +1,6 @@
 package com.techys.classification.viewmodel
 
 import android.content.Context
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.techys.classification.model.ClassificationState
 import com.techys.classification.model.ImageSource
@@ -18,8 +17,6 @@ import com.techys.core.model.UiState
 import com.techys.ip.domain.model.ClassificationResult
 import com.techys.ip.domain.usecase.ImageClassifyUseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -75,7 +72,7 @@ class ClassificationViewModel(
         }
         updateState {
             copy(
-                state = UiState.Loading
+                uiState = UiState.Loading
             )
         }
         val result = classificationUseCase(
@@ -89,7 +86,7 @@ class ClassificationViewModel(
             is ClassificationResult.Success -> {
                 updateState {
                     copy(
-                        state = UiState.Idle,
+                        uiState = UiState.Idle,
                         label = result.label
                     )
                 }
@@ -98,7 +95,7 @@ class ClassificationViewModel(
             is ClassificationResult.NotRecognized -> {
                 updateState {
                     copy(
-                        state = UiState.Idle
+                        uiState = UiState.Idle
                     )
                 }
                 _errorMessages.emit(R.string.classification_unsuccessful)

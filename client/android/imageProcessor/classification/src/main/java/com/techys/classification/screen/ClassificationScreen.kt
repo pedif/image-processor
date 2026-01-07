@@ -92,7 +92,7 @@ private fun ClassificationScreen(
             }
         }
 
-        if(state.state == UiState.Loading)
+        if(state.uiState == UiState.Loading)
             LoadingComponent()
     }
 }
