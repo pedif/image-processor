@@ -6,6 +6,8 @@ import com.techys.ip.domain.repository.ImageRepository
 import com.techys.ip.domain.usecase.ImageClassifyUseCase
 import com.techys.core.util.AndroidLogger
 import com.techys.ip.domain.repository.ImageRepositoryStub
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Manual dependency injector
@@ -18,4 +20,6 @@ object AppContainerImpl: AppContainer {
         get() = ImageRepositoryStub()
     override val classificationUseCase: ImageClassifyUseCase
         get() = ImageClassifyUseCase(repository)
+    override val dispatcher: CoroutineDispatcher
+        get() = Dispatchers.Main
 }

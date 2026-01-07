@@ -17,6 +17,8 @@ import com.techys.common.util.Logger
 import com.techys.core.model.UiState
 import com.techys.ip.domain.model.ClassificationResult
 import com.techys.ip.domain.usecase.ImageClassifyUseCase
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -25,6 +27,7 @@ import java.io.File
 
 class ClassificationViewModel(
     private val classificationUseCase: ImageClassifyUseCase,
+    private val dispatcher: CoroutineDispatcher,
     private val logger: Logger
 ) :
     ViewModel() {
@@ -56,7 +59,7 @@ class ClassificationViewModel(
         )
     }
 
-    fun classify(file: File) = viewModelScope.launch {
+    fun classify(file: File) = viewModelScope.launch(dispatcher) {
         logger.e(
             tag = tag,
             text = "classifying"
