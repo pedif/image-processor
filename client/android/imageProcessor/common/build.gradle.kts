@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
+    id("java-test-fixtures")
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -10,4 +11,9 @@ kotlin {
     compilerOptions {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
+}
+
+dependencies{
+    testFixturesImplementation(libs.junit)
+    testFixturesImplementation(libs.coroutine.test)
 }
