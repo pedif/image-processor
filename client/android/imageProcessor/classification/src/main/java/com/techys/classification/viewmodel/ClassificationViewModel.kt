@@ -1,6 +1,7 @@
 package com.techys.classification.viewmodel
 
 import android.content.Context
+import android.net.Uri
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import com.techys.classification.model.ClassificationState
@@ -39,22 +40,9 @@ class ClassificationViewModel(
     private val _errorMessages = MutableSharedFlow<Int>()
     val errorMessages: SharedFlow<Int> = _errorMessages
 
-    //TODO Remove all asset related placeholders when gallery/camera are setup
-    fun loadAssetPlaceholder() {
-        setImageSource("cat.png")
-    }
-
-    fun setImageSource(path: String) {
-        updateState { copy(image = ImageSource(path.toUri())) }
-    }
-
-    fun classifyDemoAsset(context: Context) {
-        classify(
-            assetToFile(
-                context = context,
-                assetPath = "cat.png"
-            )
-        )
+    fun setImageSource(uri: Uri) {
+        logger.e(uri.toString(), "tagtag")
+        updateState { copy(image = ImageSource(uri)) }
     }
 
     fun classify()= viewModelScope.launch(dispatcher){
@@ -119,22 +107,4 @@ class ClassificationViewModel(
     private fun updateState(transform: ClassificationState.() -> ClassificationState) {
         _state.update { it.transform() }
     }
-
-    /**
-     * Since for the sake of development we're using an asset file instead of using cameraX or gallery
-     * we need to copy the packaged asset to a temp file and use it that way
-     * TODO remove when cameraX and gallery are implemented
-     */
-    fun assetToFile(context: Context, assetPath: String): File {
-        val outFile = File(context.cacheDir, assetPath.substringAfterLast('/'))
-
-        context.assets.open(assetPath).use { input ->
-            outFile.outputStream().use { output ->
-                input.copyTo(output)
-            }
-        }
-
-        return outFile
-    }
-
 }

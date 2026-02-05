@@ -43,14 +43,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    testImplementation(libs.junit)
-    testImplementation(libs.coroutine.test)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    testImplementation(testFixtures(projects.common))
-    testImplementation(libs.turbine)
-    testImplementation(libs.truth)
 
+    //Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
@@ -58,4 +52,19 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    //testing
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutine.test)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(testFixtures(projects.common))
+    testImplementation(libs.turbine)
+    testImplementation(libs.truth)
+    //
+
+
+    //Gallery picker
+    implementation(libs.androidx.activity.compose)
+    //
 }
