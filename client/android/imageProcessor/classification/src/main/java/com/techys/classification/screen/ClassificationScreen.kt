@@ -1,15 +1,14 @@
 package com.techys.classification.screen
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -19,9 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.techys.classification.R
 import com.techys.classification.model.ClassificationState
 import com.techys.classification.model.ImageSource
 import com.techys.classification.viewmodel.ClassificationViewModel
@@ -43,7 +40,10 @@ fun ClassificationScreen(
         state = state,
         modifier = modifier,
         onClassifyClick = {
-            viewModel.classifyDemoAsset(context)
+            viewModel.classify()
+        },
+        onImagePicked = { imageUri ->
+            viewModel.setImageSource(imageUri)
         }
     )
 
@@ -53,18 +53,14 @@ fun ClassificationScreen(
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
-
-    //TODO delete when gallery/cameraX implemented
-    LaunchedEffect(Unit) {
-        viewModel.loadAssetPlaceholder()
-    }
 }
 
 @Composable
 private fun ClassificationScreen(
     state: ClassificationState,
     modifier: Modifier = Modifier,
-    onClassifyClick: () -> Unit = {}
+    onClassifyClick: () -> Unit = {},
+    onImagePicked: (Uri) -> Unit = {}
 ) {
 
     val label: ImageLabel? = state.label
@@ -77,22 +73,19 @@ private fun ClassificationScreen(
             image = image,
             label = label
         )
-        Box(
+        ActionAreaComponent(
+            isImageSelected = image != null,
             modifier = Modifier
                 .padding(
                     vertical = Dimen.paddingScreenVertical,
                     horizontal = Dimen.paddingScreenHorizontal
                 )
-                .align(Alignment.BottomCenter)
-        ) {
-            Button(
-                onClick = onClassifyClick
-            ) {
-                Text(text = stringResource(R.string.action_classification))
-            }
-        }
+                .align(Alignment.BottomCenter),
+            onClassifyClick = onClassifyClick,
+            onImagePicked = onImagePicked
+        )
 
-        if(state.uiState == UiState.Loading)
+        if (state.uiState == UiState.Loading)
             LoadingComponent()
     }
 }
@@ -109,15 +102,4 @@ private fun PreviewScreen() {
             )
         }
     }
-}
-
-//TODO only used for testing purposes. Delete when gallery/Camera are setup
-fun loadImageBitmapFromAsset(
-    context: Context,
-    assetPath: Uri
-): ImageBitmap {
-    val inputStream = context.assets.open(assetPath.path.orEmpty())
-    val bitmap = BitmapFactory.decodeStream(inputStream)
-    inputStream.close()
-    return bitmap.asImageBitmap()
 }

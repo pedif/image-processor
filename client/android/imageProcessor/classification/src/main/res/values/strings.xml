@@ -8,4 +8,5 @@
     <string name="error_classification_timeout">An timeout has happened</string>
     <string name="error_classification_crash">The AI model has crashed</string>
     <string name="error_classification_unknown">An unknown error has happened</string>
+    <string name="action_pick_gallery">Pick From Gallery</string>
 </resources>
