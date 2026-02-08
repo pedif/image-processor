@@ -10,7 +10,7 @@ image_name = "test.png"
 def test_image_upload():
     with open(image_path, "rb") as f:
         response = client.post(
-            "upload/",
+            "classify/",
             files = {"file": f}
         )
         

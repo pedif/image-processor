@@ -1,7 +1,7 @@
 import requests
 
 # URL of local FastAPI endpoint
-url = "http://127.0.0.1:8000/upload"
+url = "http://127.0.0.1:8000/classify"
 
 # Path to test image
 image_path = "uploads/test.png"
