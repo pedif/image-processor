@@ -23,13 +23,11 @@ preprocess = transforms.Compose(
     ]
 )
 
+
 def process_image(image_bytes: bytes):
-    try:
-        image = Image.open(BytesIO(image_bytes)).convert("RGB")
-        label, confidence = classify_image(image)
-        return {"label": label, "confidence": confidence}
-    except Exception as e:
-        return {"error": str(e)}
+    image = Image.open(BytesIO(image_bytes)).convert("RGB")
+    label, confidence = classify_image(image)
+    return {"label": label, "confidence": confidence}
 
 
 def classify_image(image: Image.Image):
@@ -40,4 +38,4 @@ def classify_image(image: Image.Image):
         probs = torch.nn.functional.softmax(outputs[0], dim=0)
         conf, idx = torch.max(probs, dim=0)
         label = IMAGENET_CLASSES[str(idx.item())]
-        return label, conf.item()
+        return label, round(conf.item(), 2)
