@@ -12,5 +12,8 @@ with open(image_path, "rb") as f:
     response = requests.post(url, files=files)
 
 # Print the JSON response
-print(response.status_code)
-print(response.json())
+try:
+    print(response.status_code)
+    print(response.json())
+except Exception as e:
+    print("error:", e)

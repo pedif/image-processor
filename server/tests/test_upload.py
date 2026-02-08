@@ -3,9 +3,6 @@ from api.main import app
 
 client = TestClient(app)
 
-# URL of local FastAPI endpoint
-url = "http://127.0.0.1:8000/upload"
-
 # Path to test image
 image_path = "uploads/test.png"
 image_name = "test.png"
