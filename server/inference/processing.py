@@ -1,12 +1,43 @@
 from PIL import Image
-import io
+from io import BytesIO
+import torch
+import torchvision.transforms as transforms
+from torchvision import models
+import json
 
+# Load ImageNet Labels
+with open("inference/imagenet_classes.json", "r") as f:
+    IMAGENET_CLASSES = json.load(f)
 
-def process_image(file_bytes: bytes):
+# CPU Model
+model = models.resnet18(pretrained=True)
+model.eval()
+
+# Image Processing
+preprocess = transforms.Compose(
+    [
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ]
+)
+
+def process_image(image_bytes: bytes):
     try:
-        image = Image.open(io.BytesIO(file_bytes))
-        # for now we just return the image size
-        width, height = image.size
-        return {"width": width, "height": height}
+        image = Image.open(BytesIO(image_bytes)).convert("RGB")
+        label, confidence = classify_image(image)
+        return {"label": label, "confidence": confidence}
     except Exception as e:
         return {"error": str(e)}
+
+
+def classify_image(image: Image.Image):
+    """Returns (label, confidence) for an input PIL image."""
+    input_tensor = preprocess(image).unsqueeze(0)
+    with torch.no_grad():
+        outputs = model(input_tensor)
+        probs = torch.nn.functional.softmax(outputs[0], dim=0)
+        conf, idx = torch.max(probs, dim=0)
+        label = IMAGENET_CLASSES[str(idx.item())]
+        return label, conf.item()

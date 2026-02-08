@@ -1,0 +1,14 @@
+import json
+from torchvision import models
+
+# Using default ImageNet class labels
+imagenet_classes = models.ResNet18_Weights.DEFAULT.meta["categories"]
+
+# Convert to dictionary with string keys
+imagenet_dict = {str(i): label for i, label in enumerate(imagenet_classes)}
+
+# Saving to JSON
+with open("imagenet_classes.json", "w") as f:
+    json.dump(imagenet_dict, f, indent=2)
+
+print("imagenet_classes.json generated successfully!")
