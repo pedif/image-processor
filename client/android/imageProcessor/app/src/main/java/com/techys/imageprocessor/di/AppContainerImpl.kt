@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
  * TODO replace with Hilt
  */
 object AppContainerImpl: AppContainer {
-    override val Logger: Logger
+    override val logger: Logger
         get() = AndroidLogger()
     override val repository: ImageRepository
         get() = ImageRepositoryStub()

@@ -6,7 +6,7 @@ import com.techys.ip.domain.usecase.ImageClassifyUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 
 interface AppContainer {
-    val Logger: Logger
+    val logger: Logger
     val repository: ImageRepository
     val classificationUseCase: ImageClassifyUseCase
     val dispatcher: CoroutineDispatcher
