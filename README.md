@@ -1,13 +1,13 @@
 # Image Processor (Android + AI)
 
-A portfolio project exploring the intersection of **mobile developement** and **applied AI**.
+A portfolio project exploring the intersection of **mobile development** and **applied AI**.
 
 This repository contains a full-stack setup:
-- **Android client* for image capture and upload
+- **Android client** for image capture and upload
 - **Python backend** for image classification
 - Future support for **ondevice inference** (TFLite)
 
-This project is build incrementally.
+This project is built incrementally.
 
 
 ---
@@ -34,44 +34,45 @@ This project is build incrementally.
 
 ## Repository Structure
 ```
-image-processor/           ← Root
-├── client/                ← Client code
-│   └── android/           ← Android Studio project
-│       ├── app/           ← App module
-│       ├── core/          ← Shared logic, utilities, network
-│       ├── feature-*      ← Feature modules (classifier, camera, etc.)
-│       ├── domain/        ← Business logic
-│       ├── io/            ← Networking and local io operations
-│       ├── ml/            ← Local(offline) ml processing
-│       └── build-logic/   ← Gradle convention plugins & version catalog
-├── server/                ← Python backend
-│   └── api/
-│       ├── app/           ← FastAPI application
-│       ├── inference/     ← Model loading & inference scripts
-│       ├── models/        ← Model files (.pth, .onnx, later .tflite)
-│       └── tests/         ← Backend unit tests
-├── docs/                  ← Documentation, diagrams, design notes
-├── .github/               ← GitHub Actions workflows
-└── README.md              ← Root README
+ImageProcessor/            ← Root
+├── client/
+│   └── android/imageProcessor/   ← Android project (Gradle + Kotlin)
+│       ├── app/                  ← Application entry, DI wiring
+│       ├── classification/       ← Classification UI & ViewModel
+│       ├── core/                  ← Shared DI, UiState, logging
+│       ├── common/                ← Logger interface, test utils
+│       ├── designSystem/          ← Theme, colors, typography
+│       ├── domain/                ← Use cases, repository interface, models
+│       ├── io/                    ← Network DTOs, mappers
+│       └── ml/                    ← Local ML (TFLite later)
+├── server/                 ← Python backend (FastAPI)
+│   ├── api/                ← FastAPI app, routes, validators
+│   ├── inference/          ← Model loading, ImageNet classes, processing
+│   ├── models/             ← Model files (.pth, .onnx, later .tflite)
+│   ├── tests/              ← API and validator tests
+│   ├── uploads/            ← Uploaded images (dev)
+│   ├── pyproject.toml
+│   └── requirements.txt
+└── README.md
 ```
 
 ---
 
 
 ## Project Goals
--Build a production-style Android app that captures and upload imageds
+- Build a production-style Android app that captures and uploads images
 - Implement a Python-based inference backend
 - Bridge backend AI models with mobile deployment
-- Main clean Git history and incremental improvements
+- Maintain clean Git history and incremental improvements
 
 
 ---
 
 
-## Developement Approach
+## Development Approach
 - Features are added progressively
-- CI/CD will be introduced 
--- Emphasis on learning, clarity, and maintainability over shortcuts
+- CI/CD will be introduced later
+- Emphasis on learning, clarity, and maintainability over shortcuts
 
 
 ---
@@ -79,5 +80,4 @@ image-processor/           ← Root
 
 ## Status
 
-U+1F6A7 Work in progress
-This project is under active developement.
+🚧 Work in progress — this project is under active development.
