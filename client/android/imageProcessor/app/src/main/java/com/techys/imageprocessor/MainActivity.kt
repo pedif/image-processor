@@ -24,6 +24,7 @@ class MainActivity : ComponentActivity() {
                     val viewModel = remember {
                         ClassificationViewModel(
                             classificationUseCase = container.classificationUseCase,
+                            imagePreparer = container.imagePreparer,
                             dispatcher = container.dispatcher,
                             logger = container.logger
                         )
