@@ -62,6 +62,7 @@ dependencies {
     testImplementation(testFixtures(projects.common))
     testImplementation(libs.turbine)
     testImplementation(libs.truth)
+    testImplementation(libs.mockk)
     //
 
 

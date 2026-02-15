@@ -8,6 +8,7 @@ import com.techys.core.util.ImagePreparer
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import androidx.core.graphics.scale
 
 private const val MAX_SIZE_BYTES = 5 * 1024 * 1024 // 5MB server limit
 private const val MAX_LONG_SIDE = 1024
@@ -92,7 +93,7 @@ class ImagePreparerImpl(
         val scale = maxLongSide.toFloat() / longSide
         val newW = (w * scale).toInt().coerceAtLeast(1)
         val newH = (h * scale).toInt().coerceAtLeast(1)
-        return Bitmap.createScaledBitmap(bitmap, newW, newH, true)
+        return bitmap.scale(newW, newH)
     }
 
     private fun writeToTempFileJpeg(bitmap: Bitmap): File {
