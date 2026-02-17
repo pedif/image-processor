@@ -11,7 +11,7 @@ import pathlib
 BASE_DIR = pathlib.Path(__file__).parent
 
 # Load ImageNet Labels
-with open(BASE_DIR / "/imagenet_classes.json", "r") as f:
+with open(BASE_DIR / "imagenet_classes.json", "r") as f:
     IMAGENET_CLASSES = json.load(f)
 
 # CPU Model
