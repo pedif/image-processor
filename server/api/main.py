@@ -3,7 +3,9 @@ import inference.processing
 import logging
 import asyncio
 from api.validators import check_file_size, check_image_validity
-from pydantic import BaseModel, Field
+from models.responses import ImageResponse
+from models.errors import ErrorResponse, ErrorCode
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -13,11 +15,6 @@ app = FastAPI(
     description="A FastAPI server to classify images.",
     version="1.0",
 )
-
-
-class ImageResponse(BaseModel):
-    label: str = Field(..., description="Predicted class label")
-    confidence: float = Field(..., description="Prediction confidence (0.00-1.00)", example = 0.87)
 
 
 @app.get("/")
@@ -37,9 +34,9 @@ async def health():
     description="Upload an image file (JPEG or PNG). The server will return the predicted label and confidence score.",
     tags=["Image Processing"],
     responses={
-        400: {"description": "Invalid image"},
-        413: {"description": "File too large"},
-        500: {"description": "Internal server error"},
+        400: {"model": ErrorResponse, "description": "Invalid image"},
+        413: {"model": ErrorResponse, "description": "File too large"},
+        500: {"model": ErrorResponse, "description": "Internal server error"},
     },
 )
 async def classify_image(
@@ -59,6 +56,12 @@ async def classify_image(
         )
     except Exception as e:
         # Raise an HTTPException with a 400 status code for bad input (invalid image)
-        raise HTTPException(status_code=400, detail=f"Error processing image: {str(e)}")
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error_code=ErrorCode.PROCESSING_CRASH,
+                message=f"Error processing image: {str(e)}",
+            ),
+        )
 
     return result

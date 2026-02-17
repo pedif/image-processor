@@ -4,6 +4,7 @@ import torch
 import torchvision.transforms as transforms
 from torchvision import models
 import json
+from models.responses import ImageResponse
 
 # Load ImageNet Labels
 with open("inference/imagenet_classes.json", "r") as f:
@@ -27,7 +28,7 @@ preprocess = transforms.Compose(
 def process_image(image_bytes: bytes):
     image = Image.open(BytesIO(image_bytes)).convert("RGB")
     label, confidence = classify_image(image)
-    return {"label": label, "confidence": confidence}
+    return ImageResponse(label=label, confidence=confidence)
 
 
 def classify_image(image: Image.Image):
