@@ -5,9 +5,13 @@ import torchvision.transforms as transforms
 from torchvision import models
 import json
 from models.responses import ImageResponse
+import pathlib
+
+
+BASE_DIR = pathlib.Path(__file__).parent
 
 # Load ImageNet Labels
-with open("inference/imagenet_classes.json", "r") as f:
+with open(BASE_DIR / "/imagenet_classes.json", "r") as f:
     IMAGENET_CLASSES = json.load(f)
 
 # CPU Model
