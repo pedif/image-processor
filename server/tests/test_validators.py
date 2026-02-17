@@ -1,9 +1,13 @@
 from api.validators import check_file_size, check_image_validity
 import pytest
 from fastapi import HTTPException
+import pathlib
+
+PARENT_DIR = pathlib.Path(__file__).parent.parent
 
 # path to test image
-image_path = "uploads/test.png"
+image_path = PARENT_DIR / "uploads/test.png"
+
 
 def test_check_file_size_valid_file():
     with open(image_path, "rb") as f:
@@ -13,11 +17,10 @@ def test_check_file_size_valid_file():
 
 
 def test_check_file_size_large_file():
-        # Test valid size
-        contents= b"A" * (5 * 1024 * 1024 + 1) #5MB +1
-        with pytest.raises(HTTPException):
-            check_file_size(contents)
-
+    # Test valid size
+    contents = b"A" * (5 * 1024 * 1024 + 1)  # 5MB +1
+    with pytest.raises(HTTPException):
+        check_file_size(contents)
 
 
 def test_check_image_validity_valid_file():
@@ -25,7 +28,6 @@ def test_check_image_validity_valid_file():
         contents = f.read()
         # Test valid size
         check_image_validity(contents)
-
 
 
 def test_check_image_validity_invalid_file():
