@@ -25,22 +25,23 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Grant execute permission to Gradle wrapper
         working-directory: client/android/imageProcessor
         run: chmod +x ./gradlew
 
       - name: Run unit tests
         working-directory: client/android/imageProcessor
-        run: ./gradlew testDebugUnitTest
-      - name: Run domain module unit tests
-        working-directory: client/android/imageProcessor
-        run: ./gradlew :domain:test
-      - name: Run io module unit tests
-        working-directory: client/android/imageProcessor
-        run: ./gradlew :io:test
-      - name: Run ml module unit tests
-        working-directory: client/android/imageProcessor
-        run: ./gradlew :ml:test
+        run: ./gradlew testDebugUnitTest :domain:test :io:test :ml:test
 
       - name: Build APK
         working-directory: client/android/imageProcessor
