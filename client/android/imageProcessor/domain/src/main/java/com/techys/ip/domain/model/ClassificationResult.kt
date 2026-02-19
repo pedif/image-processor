@@ -12,7 +12,11 @@ sealed class ClassificationResult {
 
 sealed class ClassificationError {
     data object FileNotFound : ClassificationError()
-    data object ModelCrashed : ClassificationError()
+    data object InvalidImageFormat : ClassificationError()
+    data object FileTooLarge : ClassificationError()
+    data object ProcessingCrash : ClassificationError()
+    data class UnknownServerError(val code: String, val message: String) : ClassificationError()
     data object Timeout : ClassificationError()
+    data object Network : ClassificationError()
     data class Unknown(val reason: String = "") : ClassificationError()
 }
