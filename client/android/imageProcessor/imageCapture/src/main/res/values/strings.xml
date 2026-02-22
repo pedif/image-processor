@@ -2,4 +2,6 @@
 <resources>
     <string name="action_capture">Take Picture</string>
     <string name="action_retry">Discard</string>
+    <string name="error_camera">There is something with your camera!</string>
+    <string name="error_capture">Image capture failed!</string>
 </resources>

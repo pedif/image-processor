@@ -28,7 +28,7 @@ hilt = "2.51.1"
 hiltNavigationCompose = "1.2.0"
 ksp = "2.2.21-2.0.4"
 room = "2.6.1"
-coreKtxVersion = "1.17.0"
+coroutineGuava = "1.7.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,6 +51,7 @@ androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", vers
 
 # Optional add-on libraries
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
+coroutine-guava = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "coroutineGuava"}
 
 #Networking
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
@@ -90,7 +91,8 @@ coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-t
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
