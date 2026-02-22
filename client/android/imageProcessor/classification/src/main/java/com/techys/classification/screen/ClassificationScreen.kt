@@ -1,8 +1,5 @@
 package com.techys.classification.screen
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
@@ -15,8 +12,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.techys.classification.model.ClassificationState
@@ -30,7 +25,8 @@ import com.techys.ip.domain.model.ImageLabel
 @Composable
 fun ClassificationScreen(
     viewModel: ClassificationViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onImageCaptureClick: () -> Unit = {}
 ) {
 
     val context = LocalContext.current
@@ -44,7 +40,8 @@ fun ClassificationScreen(
         },
         onImagePicked = { imageUri ->
             viewModel.setImageSource(imageUri)
-        }
+        },
+        onImageCaptureClick = onImageCaptureClick
     )
 
     val errorFlow = viewModel.errorMessages
@@ -60,6 +57,7 @@ private fun ClassificationScreen(
     state: ClassificationState,
     modifier: Modifier = Modifier,
     onClassifyClick: () -> Unit = {},
+    onImageCaptureClick: () -> Unit = {},
     onImagePicked: (Uri) -> Unit = {}
 ) {
 
@@ -82,7 +80,8 @@ private fun ClassificationScreen(
                 )
                 .align(Alignment.BottomCenter),
             onClassifyClick = onClassifyClick,
-            onImagePicked = onImagePicked
+            onImagePicked = onImagePicked,
+            onImageCaptureClick = onImageCaptureClick
         )
 
         if (state.uiState == UiState.Loading)

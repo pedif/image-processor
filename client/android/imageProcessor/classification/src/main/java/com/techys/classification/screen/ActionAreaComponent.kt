@@ -5,9 +5,11 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,7 +27,8 @@ fun ActionAreaComponent(
     isImageSelected: Boolean,
     modifier: Modifier = Modifier,
     onImagePicked: (Uri) -> Unit = {},
-    onClassifyClick: () -> Unit = {}
+    onClassifyClick: () -> Unit = {},
+    onImageCaptureClick: () -> Unit = {}
 ) {
     val imagePickerLauncher =
         rememberLauncherForActivityResult(
@@ -45,14 +48,25 @@ fun ActionAreaComponent(
             Text(text = stringResource(R.string.action_classification))
         }
         Spacer(modifier = Modifier.height(Dimen.paddingLarge))
-        Button(onClick = {
-            imagePickerLauncher.launch(
-                PickVisualMediaRequest(
-                    ActivityResultContracts.PickVisualMedia.ImageOnly
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = onImageCaptureClick,
+            ) {
+                Text(text = stringResource(R.string.action_use_camera))
+            }
+            Spacer(modifier = Modifier.width(Dimen.paddingXLarge))
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                imagePickerLauncher.launch(
+                    PickVisualMediaRequest(
+                        ActivityResultContracts.PickVisualMedia.ImageOnly
+                    )
                 )
-            )
-        }) {
-            Text(stringResource(R.string.action_pick_gallery))
+            }) {
+                Text(stringResource(R.string.action_pick_gallery))
+            }
         }
     }
 }

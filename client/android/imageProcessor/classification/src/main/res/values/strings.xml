@@ -13,4 +13,5 @@
     <string name="error_classification_image_invalid">Please pick another image</string>
     <string name="error_classification_network">Please check your internet connection</string>
     <string name="action_pick_gallery">Pick From Gallery</string>
+    <string name="action_use_camera">Open Camera</string>
 </resources>

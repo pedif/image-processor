@@ -94,6 +94,11 @@ class ClassificationViewModel(
 
             is ClassificationResult.Error -> {
                 _errorMessages.emit(result.error.getMessage())
+                updateState {
+                    copy(
+                        uiState = UiState.Idle
+                    )
+                }
             }
 
             else -> {}

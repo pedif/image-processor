@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +25,8 @@ internal fun ActionAreaComponent(
     isImageCaptured: Boolean,
     modifier: Modifier = Modifier,
     onCaptureClick: () -> Unit = {},
-    onRetryClick: () -> Unit = {}
+    onRetryClick: () -> Unit = {},
+    onAcceptClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -30,10 +34,15 @@ internal fun ActionAreaComponent(
             .padding(Dimen.paddingScreenHorizontal),
         horizontalArrangement = Arrangement.Center
     ) {
-        if(isImageCaptured) {
+
+        if (isImageCaptured) {
             Button(
                 onClick = onRetryClick,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors().copy(
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onError
+                )
             ) {
                 Text(
                     text = stringResource(R.string.action_retry)
@@ -41,25 +50,46 @@ internal fun ActionAreaComponent(
             }
 
             Spacer(modifier = Modifier.width(Dimen.paddingLarge))
-        }
 
-        Button(
-            onClick = onCaptureClick,
-            modifier = Modifier.weight(1f)
-        ) {
-            Text(
-                text = stringResource(R.string.action_capture)
-            )
+            Button(
+                onClick = onAcceptClick,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = stringResource(R.string.action_done)
+                )
+            }
+
+        } else {
+            Button(
+                onClick = onCaptureClick,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = stringResource(R.string.action_capture)
+                )
+            }
         }
     }
 }
 
 @Preview
 @Composable
-private fun PreviewComponent() {
+private fun PreviewComponentCapturedState() {
     ImageProcessorTheme {
         Surface {
             ActionAreaComponent(isImageCaptured = true)
+        }
+    }
+}
+
+
+@Preview
+@Composable
+private fun PreviewComponentNormalState() {
+    ImageProcessorTheme {
+        Surface {
+            ActionAreaComponent(isImageCaptured = false)
         }
     }
 }

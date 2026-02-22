@@ -26,7 +26,8 @@ import com.techys.ip.designsystem.theme.ImageProcessorTheme
 @Composable
 fun ImageCaptureScreen(
     viewmodel: ImageCaptureViewmodel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onImageSelectedCLick: (String?) -> Unit = {},
 ) {
     val permissionState = rememberPermissionState(Manifest.permission.CAMERA)
     val state by viewmodel.state.collectAsState()
@@ -37,7 +38,8 @@ fun ImageCaptureScreen(
             onImageCaptured = viewmodel::saveImageCapture,
             onRetryClick = viewmodel::retry,
             onCaptureError = viewmodel::onCaptureError,
-            onCameraBindError = viewmodel::onCameraBindError
+            onCameraBindError = viewmodel::onCameraBindError,
+            onAcceptClick = { onImageSelectedCLick((state as CaptureState.ImageCaptured).path) }
         )
     } else {
         LaunchedEffect(Unit) {
@@ -54,7 +56,8 @@ private fun ImageCaptureScreen(
     onImageCaptured: (Uri?) -> Unit = {},
     onRetryClick: () -> Unit = {},
     onCaptureError: (String) -> Unit = {},
-    onCameraBindError: (String) ->  Unit = {}
+    onCameraBindError: (String) -> Unit = {},
+    onAcceptClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -85,7 +88,8 @@ private fun ImageCaptureScreen(
         onImageCaptured = onImageCaptured,
         modifier = modifier,
         onError = onCaptureError,
-        onRetryClick =  onRetryClick
+        onRetryClick = onRetryClick,
+        onAcceptClick = onAcceptClick
     )
 }
 

@@ -10,7 +10,7 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import androidx.core.graphics.scale
 
-private const val MAX_SIZE_BYTES = 5 * 1024 * 1024 // 5MB server limit
+private const val MAX_SIZE_BYTES = 5 * 1024 // 5MB server limit
 private const val MAX_LONG_SIDE = 1024
 private const val JPEG_QUALITY = 85
 

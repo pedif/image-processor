@@ -65,6 +65,7 @@ internal fun CameraPreviewComponent(
     modifier: Modifier = Modifier,
     onImageCaptured: (Uri?) -> Unit = {},
     onRetryClick: () -> Unit = {},
+    onAcceptClick: () -> Unit = {},
     onError: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -95,7 +96,8 @@ internal fun CameraPreviewComponent(
                     onError = onError
                 )
             },
-            onRetryClick = onRetryClick
+            onRetryClick = onRetryClick,
+            onAcceptClick = onAcceptClick
         )
     }
 }
