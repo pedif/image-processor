@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -25,7 +26,7 @@ import com.techys.ip.designsystem.theme.ImageProcessorTheme
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ImageCaptureScreen(
-    viewmodel: ImageCaptureViewmodel,
+    viewmodel: ImageCaptureViewmodel = hiltViewModel(),
     modifier: Modifier = Modifier,
     onImageSelectedCLick: (String?) -> Unit = {},
 ) {

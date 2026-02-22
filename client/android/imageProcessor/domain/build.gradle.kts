@@ -19,4 +19,5 @@ dependencies {
     testImplementation(libs.junit5.api)
     testRuntimeOnly(libs.junit5.engine)
     testImplementation(libs.coroutine.test)
+    implementation(libs.javax.inject)
 }

@@ -4,8 +4,9 @@ import com.techys.ip.domain.model.ClassificationError
 import com.techys.ip.domain.model.ClassificationResult
 import com.techys.ip.domain.repository.ImageRepository
 import java.io.File
+import javax.inject.Inject
 
-class ImageClassifyUseCase(
+class ImageClassifyUseCase @Inject constructor(
     private val repository: ImageRepository
 ) {
     suspend operator fun invoke(file: File): ClassificationResult {

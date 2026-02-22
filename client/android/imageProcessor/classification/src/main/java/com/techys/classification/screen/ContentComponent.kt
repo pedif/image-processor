@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import coil3.compose.AsyncImage
@@ -36,7 +37,8 @@ internal fun ContentArea(
                 .crossfade(true)
                 .build(),
             contentDescription = null,
-            modifier = modifier
+            modifier = modifier.fillMaxSize(),
+            contentScale = ContentScale.Fit
         )
         if (label != null) {
             val confidencePercentage = (label.confidence * 100).roundToInt()

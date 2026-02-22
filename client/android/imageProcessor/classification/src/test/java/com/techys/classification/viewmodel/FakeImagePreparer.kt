@@ -1,7 +1,7 @@
 package com.techys.classification.viewmodel
 
 import android.net.Uri
-import com.techys.core.util.ImagePreparer
+import com.techys.classification.util.ImagePreparer
 import java.io.File
 import java.io.IOException
 import kotlin.io.path.createTempFile

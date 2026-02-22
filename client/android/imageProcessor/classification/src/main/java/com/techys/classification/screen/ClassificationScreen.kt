@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.techys.classification.model.ClassificationState
 import com.techys.classification.model.ImageSource
 import com.techys.classification.viewmodel.ClassificationViewModel
@@ -24,7 +25,7 @@ import com.techys.ip.domain.model.ImageLabel
 
 @Composable
 fun ClassificationScreen(
-    viewModel: ClassificationViewModel,
+    viewModel: ClassificationViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
     onImageCaptureClick: () -> Unit = {}
 ) {

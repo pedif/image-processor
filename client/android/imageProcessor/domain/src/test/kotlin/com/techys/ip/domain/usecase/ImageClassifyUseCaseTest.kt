@@ -38,13 +38,13 @@ class ImageClassifyUseCaseTest {
     @Test
     fun `returns error when repository fails`() = runTest {
         val tempFile = createTempFile().toFile()
-        repo.result = ClassificationResult.Error(ClassificationError.ServerError)
+        repo.result = ClassificationResult.Error(ClassificationError.Network)
 
         val result = useCase(tempFile)
 
         assertTrue(result is ClassificationResult.Error)
         assertEquals(
-            ClassificationError.ServerError,
+            ClassificationError.Network,
             (result as ClassificationResult.Error).error
         )
     }

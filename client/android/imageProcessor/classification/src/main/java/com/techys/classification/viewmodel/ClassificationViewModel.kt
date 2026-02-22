@@ -14,9 +14,12 @@ import com.techys.classification.R
 import com.techys.classification.mapper.getMessage
 import com.techys.common.util.Logger
 import com.techys.core.model.UiState
-import com.techys.core.util.ImagePreparer
+import com.techys.classification.util.ImagePreparer
+import com.techys.core.di.IoDispatcher
+import com.techys.core.di.MainDispatcher
 import com.techys.ip.domain.model.ClassificationResult
 import com.techys.ip.domain.usecase.ImageClassifyUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,11 +27,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import javax.inject.Inject
 
-class ClassificationViewModel(
+@HiltViewModel
+class ClassificationViewModel @Inject constructor(
     private val classificationUseCase: ImageClassifyUseCase,
     private val imagePreparer: ImagePreparer,
-    private val dispatcher: CoroutineDispatcher,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val logger: Logger
 ) : ViewModel() {
     companion object {

@@ -19,22 +19,12 @@ fun NavHost(
 ) {
 
     val backStack = remember { mutableStateListOf<Any>(ClassifyRoute(imagePath = null)) }
-    val container = (LocalContext.current.applicationContext as Application).appContainer
 
     NavDisplay(
         backStack = backStack,
         entryProvider = entryProvider {
             entry<ClassifyRoute> { key ->
-                val viewModel = remember {
-                    ClassificationViewModel(
-                        classificationUseCase = container.classificationUseCase,
-                        imagePreparer = container.imagePreparer,
-                        dispatcher = container.dispatcher,
-                        logger = container.logger
-                    )
-                }
                 ClassificationScreen(
-                    viewModel = viewModel,
                     modifier = modifier,
                     onImageCaptureClick = {
                         backStack.add(ImageCaptureRoute)
@@ -42,12 +32,7 @@ fun NavHost(
                 )
             }
             entry<ImageCaptureRoute> {
-                val viewModel = remember {
-                    ImageCaptureViewmodel(container.logger)
-                }
-
                 ImageCaptureScreen(
-                    viewmodel = viewModel,
                     modifier = modifier,
                     onImageSelectedCLick = { imagePath ->
                         backStack.clear()

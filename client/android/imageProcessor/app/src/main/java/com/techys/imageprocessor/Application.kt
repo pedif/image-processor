@@ -1,15 +1,13 @@
 package com.techys.imageprocessor
 
 import android.app.Application
-import com.techys.core.di.AppContainer
-import com.techys.imageprocessor.di.AppContainerImpl
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class Application : Application() {
-    lateinit var appContainer: AppContainer
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        appContainer = AppContainerImpl(applicationContext)
     }
 }

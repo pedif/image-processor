@@ -12,8 +12,9 @@ import com.techys.ip.domain.repository.ImageRepository
 import java.io.File
 import java.io.IOException
 import java.net.SocketTimeoutException
+import javax.inject.Inject
 
-class NetworkImageRepository(
+class NetworkImageRepository @Inject constructor(
     val api: ImageApi,
     val logger: Logger,
     val errorParser: ApiErrorParser

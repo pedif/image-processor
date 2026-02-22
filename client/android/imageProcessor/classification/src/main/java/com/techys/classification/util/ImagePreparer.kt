@@ -1,4 +1,4 @@
-package com.techys.core.util
+package com.techys.classification.util
 
 import android.net.Uri
 import java.io.File

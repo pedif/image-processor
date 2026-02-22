@@ -4,11 +4,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import com.techys.core.util.ImagePreparer
+import com.techys.classification.util.ImagePreparer
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import androidx.core.graphics.scale
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 private const val MAX_SIZE_BYTES = 5 * 1024 // 5MB server limit
 private const val MAX_LONG_SIDE = 1024
@@ -17,8 +19,8 @@ private const val JPEG_QUALITY = 85
 /**
  * Prepares a image for upload. If size is over 5MB, resizes and compresses to JPEG
  */
-class ImagePreparerImpl(
-    private val context: Context
+class ImagePreparerImpl @Inject constructor(
+    @ApplicationContext val context: Context
 ) : ImagePreparer {
 
     override suspend fun prepare(uri: Uri): File {
