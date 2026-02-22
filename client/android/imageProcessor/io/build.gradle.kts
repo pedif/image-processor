@@ -44,7 +44,8 @@ dependencies{
 
     //network
     implementation(libs.retrofit)
-    implementation(libs.retrofit.converter)
+    implementation(libs.retrofit.moshi.core)
+    implementation(libs.retrofit.moshi.adapter)
     implementation(libs.okhttp)
     implementation(libs.okhttp.interceptor)
     //
